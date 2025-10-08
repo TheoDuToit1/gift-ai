@@ -145,6 +145,14 @@ export const HeroCTAButton: React.FC<HeroCTAButtonProps> = ({
               <span style={{'--i': 15} as React.CSSProperties}>0</span>
               <span style={{'--i': 16} as React.CSSProperties}>0</span>
             </>
+          ) : defaultText === 'Enter' ? (
+            <>
+              <span style={{'--i': 0} as React.CSSProperties}>E</span>
+              <span style={{'--i': 1} as React.CSSProperties}>n</span>
+              <span style={{'--i': 2} as React.CSSProperties}>t</span>
+              <span style={{'--i': 3} as React.CSSProperties}>e</span>
+              <span style={{'--i': 4} as React.CSSProperties}>r</span>
+            </>
           ) : (
             textToSpans(defaultText, 0)
           )}

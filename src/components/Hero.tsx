@@ -439,10 +439,30 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                 (isDark && (slide.id === 3 || slide.id === 0) ? 'text-white' : (slide.textColor || 'text-white'))
               }`}
               style={slide.backgroundImage ? {
-                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url(${slide.backgroundImage})`,
+                backgroundImage: `
+                  linear-gradient(to right, 
+                    ${isDark ? '#111827' : '#ffffff'} 0%, 
+                    ${isDark ? 'rgba(17, 24, 39, 0.8)' : 'rgba(255, 255, 255, 0.8)'} 15%, 
+                    rgba(0, 0, 0, 0.3) 30%, 
+                    rgba(0, 0, 0, 0.5) 70%, 
+                    ${isDark ? 'rgba(17, 24, 39, 0.8)' : 'rgba(255, 255, 255, 0.8)'} 85%, 
+                    ${isDark ? '#111827' : '#ffffff'} 100%
+                  ),
+                  linear-gradient(to bottom, 
+                    ${isDark ? '#111827' : '#ffffff'} 0%, 
+                    ${isDark ? 'rgba(17, 24, 39, 0.7)' : 'rgba(255, 255, 255, 0.7)'} 20%, 
+                    rgba(0, 0, 0, 0.2) 40%, 
+                    rgba(0, 0, 0, 0.2) 60%, 
+                    ${isDark ? 'rgba(17, 24, 39, 0.7)' : 'rgba(255, 255, 255, 0.7)'} 80%, 
+                    ${isDark ? '#111827' : '#ffffff'} 100%
+                  ),
+                  url(${slide.backgroundImage})
+                `,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                backgroundBlendMode: 'darken'
+                backgroundBlendMode: 'darken',
+                marginLeft: isSidebarCollapsed ? '6rem' : '16rem',
+                borderRadius: '1.5rem'
               } : {}}
             >
               <div 
@@ -740,7 +760,9 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                       initial={{ y: 30, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
-                      className="text-center w-full max-w-7xl mx-auto px-6"
+                      className={`text-center w-full max-w-7xl px-6 transition-all duration-500 ease-in-out ${
+                        isSidebarCollapsed ? 'mx-auto' : 'ml-0 mr-auto -translate-x-64'
+                      }`}
                     >
                       {/* Main Heading - Bold and Centered - Hidden for slide 0 */}
                       {slide.id !== 0 && (
@@ -825,6 +847,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                             >
                               <HeroCTAButton
                                 className="font-manrope font-bold text-xl text-ubuntugift-primary"
+                                defaultText={isSidebarCollapsed ? "Talk to Gift Ai" : "Enter"}
                                 onClick={() => {
                                   // Wait for typewriter to finish before scrolling
                                   setTimeout(() => {
