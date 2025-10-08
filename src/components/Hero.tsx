@@ -765,7 +765,11 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                       {/* Logo positioning: centered on mobile (nudged left 30px); top-right on larger screens */}
                       {slide.id === 0 && (
                         <motion.div 
-                          className="absolute z-10 top-20 left-1/2 -translate-x-1/2 ml-[-35px] sm:top-10 sm:left-auto sm:right-[102px] sm:translate-x-0 sm:ml-0"
+                          className={`absolute z-10 top-20 left-1/2 -translate-x-1/2 ml-[-35px] sm:top-10 sm:left-auto sm:translate-x-0 sm:ml-0 transition-all duration-500 ease-in-out ${
+                            isSidebarCollapsed 
+                              ? 'sm:right-[102px]' 
+                              : 'sm:right-[102px] lg:right-[150px] xl:right-[200px]'
+                          }`}
                           initial={{ opacity: 0, x: 20, y: 20, scale: 0.9 }}
                           animate={{ opacity: 1, x: 0, y: 0, scale: 0.9 }}
                           transition={{ delay: 1, duration: 0.5 }}
