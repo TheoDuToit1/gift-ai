@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { CreditCard, Check, Phone, Mail, ArrowLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { CreditCard, Check, Phone, Mail } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
 interface Casket {
@@ -15,8 +14,17 @@ interface Casket {
 
 const CasketSelection: React.FC = () => {
   const { isDark } = useTheme();
-  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+  // Track expanded casket cards (collapsed by default)
+  const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
+  const toggleCard = (id: number) => {
+    setExpandedCards(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
 
   const caskets: Casket[] = [
     {
@@ -107,23 +115,7 @@ const CasketSelection: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto">
-      {/* Back to Main Button */}
-      <div className="mb-6">
-        <button
-          onClick={() => {
-            sessionStorage.setItem('navigatingToSection', 'plans');
-            navigate('/');
-          }}
-          className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-            isDark
-              ? 'bg-gray-800 text-white hover:bg-gray-700'
-              : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
-          }`}
-        >
-          <ArrowLeft className="w-5 h-5" />
-          Back to Main
-        </button>
-      </div>
+      
 
       {/* Header */}
       <div className="text-center mb-12">
@@ -138,7 +130,7 @@ const CasketSelection: React.FC = () => {
         </h2>
         <p className={`text-xl max-w-3xl mx-auto ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
           Our collection of caskets honors every life with beauty and respect. Each piece is crafted with care,
-          reflecting the dignity of those we serve across Limpopo province.
+          reflecting the dignity of those we serve across South Africa.
         </p>
       </div>
 
@@ -163,7 +155,9 @@ const CasketSelection: React.FC = () => {
 
       {/* Caskets Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
-        {filteredCaskets.map((casket) => (
+        {filteredCaskets.map((casket) => {
+          const isExpanded = expandedCards.has(casket.id);
+          return (
           <div
             key={casket.id}
             className={`rounded-2xl overflow-hidden shadow-lg border transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
@@ -205,39 +199,46 @@ const CasketSelection: React.FC = () => {
                 {casket.material}
               </p>
 
-              <p className={`text-sm mb-4 leading-relaxed ${
-                isDark ? 'text-gray-300' : 'text-gray-700'
-              }`}>
-                {casket.description}
-              </p>
-
-              {/* Features */}
-              <div className="mb-4">
-                <h4 className={`text-sm font-medium mb-2 ${
+              {isExpanded && (
+                <p className={`text-sm mb-4 leading-relaxed ${
                   isDark ? 'text-gray-300' : 'text-gray-700'
                 }`}>
-                  Includes:
-                </h4>
-                <ul className="text-xs space-y-1">
-                  {casket.features.map((feature, index) => (
-                    <li key={index} className={`flex items-center ${
-                      isDark ? 'text-gray-400' : 'text-gray-600'
-                    }`}>
-                      <Check className="w-3 h-3 text-green-500 mr-2 flex-shrink-0" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                  {casket.description}
+                </p>
+              )}
+
+              {/* Features */}
+              {isExpanded && (
+                <div className="mb-4">
+                  <h4 className={`text-sm font-medium mb-2 ${
+                    isDark ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    Includes:
+                  </h4>
+                  <ul className="text-xs space-y-1">
+                    {casket.features.map((feature, index) => (
+                      <li key={index} className={`flex items-center ${
+                        isDark ? 'text-gray-400' : 'text-gray-600'
+                      }`}>
+                        <Check className="w-3 h-3 text-green-500 mr-2 flex-shrink-0" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {/* Action Buttons */}
               <div className="flex gap-2">
-                <button className={`flex-1 px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                  isDark
-                    ? 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}>
-                  View Details
+                <button
+                  onClick={() => toggleCard(casket.id)}
+                  className={`flex-1 px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+                    isDark
+                      ? 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {isExpanded ? 'Hide Details' : 'View Details'}
                 </button>
                 <button className={`flex-1 px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
                   isDark
@@ -249,7 +250,7 @@ const CasketSelection: React.FC = () => {
               </div>
             </div>
           </div>
-        ))}
+        );})}
       </div>
 
       {/* Call to Action */}

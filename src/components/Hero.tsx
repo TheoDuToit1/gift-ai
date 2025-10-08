@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, HeartPulse, Briefcase, UsersRound, Users2, ShieldCheck, Activity, Heart, Star, Magnet } from 'lucide-react';
+import { HeartPulse, Briefcase, UsersRound, Users2, ShieldCheck, Activity, Heart, Star } from 'lucide-react';
 import { MagnetizeButton } from '@/components/ui/magnetize-button';
 import UniqueButton from '@/components/ui/unique-button';
 import { HeroCTAButton } from './ui/hero-cta-button';
@@ -413,7 +413,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
   };
 
   return (
-    <section id="hero" className="relative overflow-hidden transition-all duration-500 w-full pt-[25px] px-[25px] pb-[25px]">
+    <section id="hero" className={`relative overflow-hidden transition-all duration-500 w-full pt-[25px] px-[25px] pb-[25px] ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
       <AnimatePresence mode="wait">
         {heroSlides.map((slide, index) => {
           // For specific slide routes, only render that slide
@@ -428,7 +428,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className={`min-h-[60vh] sm:min-h-[75vh] flex items-center justify-center transition-colors duration-500 ease-in-out relative rounded-3xl overflow-hidden ${
+              className={`min-h-[80vh] sm:min-h-[75vh] flex items-center justify-center transition-colors duration-500 ease-in-out relative rounded-3xl overflow-hidden ${
                 slide.backgroundImage ? 'bg-cover bg-center bg-no-repeat' : 'bg-gradient-to-br'
               } ${
                 isDark && (slide.id === 3 || slide.id === 0) && !slide.backgroundImage
@@ -461,8 +461,9 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundBlendMode: 'darken',
-                marginLeft: isSidebarCollapsed ? '6rem' : '16rem',
-                borderRadius: '1.5rem'
+                marginLeft: window.innerWidth < 768 ? '0rem' : (isSidebarCollapsed ? '6rem' : '16rem'),
+                borderRadius: '1.5rem',
+                backgroundAttachment: 'fixed'
               } : {}}
             >
               <div 
@@ -490,8 +491,6 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                           selectedTestimonialId={selectedTestimonial?.id}
                         />
                       </motion.div>
-                      
-                      {/* Column 2: Dynamic Description Content */}
                       <motion.div
                         initial={{ x: 50, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
@@ -727,6 +726,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                           }}
                         />
                         
+                        
                         {/* Floating Progress Indicator */}
                         <motion.div
                           className="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg"
@@ -760,38 +760,19 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                       initial={{ y: 30, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
-                      className={`text-center w-full max-w-7xl px-6 transition-all duration-500 ease-in-out ${
-                        isSidebarCollapsed ? 'mx-auto' : 'ml-[-4rem] mr-auto'
-                      }`}
+                      className="text-center w-full max-w-7xl px-6 transition-all duration-500 ease-in-out mx-auto"
                     >
                       {/* Main Heading - Bold and Centered - Hidden for slide 0 */}
                       {slide.id !== 0 && (
-                        <h1 className={`font-manrope font-bold leading-tight tracking-tight text-gray-900 ${
-                          slide.id === 1 
-                            ? 'text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-center mb-8' 
-                            : 'text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center mb-8'
-                        }`}>
-                          {slide.id === 1 ? (
-                            <div className="mb-8">
-                              <span className="text-white">My </span>
-                              <span className="text-green-600">FamCare</span>
-                            </div>
-                          ) : (
-                            <div className="mb-8">
-                              {slide.staticText}
-                            </div>
-                          )}
+                        <h1 className="font-manrope font-bold leading-tight tracking-tight text-gray-900 text-4xl text-center mb-8">
+                          {slide.staticText}
                         </h1>
                       )}
 
-                      {/* Logo positioning: centered on mobile (nudged left 30px); top-right on larger screens */}
+                      {/* Logo positioning: top-right corner */}
                       {slide.id === 0 && (
                         <motion.div 
-                          className={`absolute z-10 top-20 left-1/2 -translate-x-1/2 ml-[-35px] sm:top-10 sm:left-auto sm:translate-x-0 sm:ml-0 transition-all duration-500 ease-in-out ${
-                            isSidebarCollapsed 
-                              ? 'sm:right-[102px]' 
-                              : 'sm:right-[102px] lg:right-[150px] xl:right-[200px]'
-                          }`}
+                          className="absolute z-10 top-2 right-4 sm:top-4 sm:right-6 md:top-6 md:right-8 transition-all duration-500 ease-in-out"
                           initial={{ opacity: 0, x: 20, y: 20, scale: 0.9 }}
                           animate={{ opacity: 1, x: 0, y: 0, scale: 0.9 }}
                           transition={{ delay: 1, duration: 0.5 }}
@@ -799,16 +780,15 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                           <img
                             src="/assets/images/Logo.jpg"
                             alt="DAY1HEALTH logo"
-                            className="w-20 sm:w-28 md:w-36 lg:w-44 xl:w-48 pointer-events-none select-none"
+                            className="w-12 sm:w-16 md:w-20 lg:w-24 xl:w-28 pointer-events-none select-none"
                             onError={(e: any) => { e.currentTarget.style.display = 'none'; }}
                           />
                         </motion.div>
                       )}
                       
                       {/* Typewriter Section - Large and Prominent */}
-                      <div className={`${slide.id === 1 ? 'mb-4 sm:mb-8' : 'mb-4 sm:mb-8'} flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 ${
-                        'items-center justify-center'
-                      }`}>
+                      <div className={`${slide.id === 1 ? 'mb-4 sm:mb-8' : 'mb-4 sm:mb-8'} flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 items-center justify-center`} 
+                           style={slide.id === 0 ? { marginLeft: isSidebarCollapsed ? '-80px' : '-130px' } : {}}>
                         {slide.id !== 1 && slide.id !== 0 && (
                           <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-manrope font-bold text-gray-900">
                             from
@@ -839,7 +819,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                           {/* Simple CTA Button for Slide 0 */}
                           {slide.id === 0 && (
                             <motion.div 
-                              className="mt-[140px] flex justify-center" /* moved further down (+32px) and centered */
+                              className="mt-[140px] flex justify-center md:justify-center" /* moved further down (+32px) and centered */
                               initial={{ y: 20, opacity: 0 }}
                               animate={{ y: 0, opacity: 1 }}
                               transition={{ delay: 2, duration: 0.6 }}
@@ -866,6 +846,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                                   }, 2700); // ~2.7s delay
                                 }}
                               />
+                              
                             </motion.div>
                           )}
                           
@@ -907,13 +888,14 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                           slide.id === 0 
                             ? (slide.backgroundImage ? 'text-white' : (isDark ? 'text-gray-200' : 'text-black')) 
                             : (isDark ? 'text-gray-300' : 'text-gray-700')
-                        } font-manrope font-bold max-w-4xl mx-auto leading-relaxed ${
+                        } font-manrope font-bold leading-relaxed ${
                           slide.id === 1 
                             ? 'text-center mt-8 mb-8' // Reduced margins for slide 1
                             : (slide.id === 0 
                                 ? 'mt-[63px] mb-12' // Move down 15px for slide 0 (48px + 15px)
                                 : 'mt-12 mb-12') // Default for other slides
                         }`}
+                        style={slide.id === 0 ? { marginLeft: isSidebarCollapsed ? '-80px' : '-130px', textAlign: 'center' } : {}}
                       >
                         {slide.subheading}
                       </motion.p>
@@ -929,7 +911,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                           className="mt-4 flex justify-center"
                           style={{ marginTop: '0' }}
                         >
-                          <HeroCTAButton
+                          <MagnetizeButton
                             onClick={() => {
                               // Wait for "Sending Down" text to finish writing out (12 letters * 0.2s = 2.4s) + plane animation (0.8s) + 0.5s delay
                               setTimeout(() => {
@@ -953,6 +935,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                             }}
                             className="font-manrope font-bold text-xl"
                           />
+                          
                         </motion.div>
                       )}
                       

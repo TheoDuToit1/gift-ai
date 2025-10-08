@@ -5,9 +5,10 @@ import { useTheme } from '../contexts/ThemeContext';
 import { AnimatedPaymentButton } from './ui/animated-payment-button';
 import ChatBot from './ChatBot';
 import FastClaim from './FastClaim';
+
 import CasketSelection from './CasketSelection';
+import { useNavigate } from 'react-router-dom';
 import { ButtonColorful } from './ui/button-colorful';
-import ThreePlan from './ThreePlan';
 
 // Enhanced Animated background carousel for intro cards
 const IntroCarousel: React.FC<{
@@ -99,6 +100,7 @@ interface ToolsTabsProps {
 const ToolsTabs: React.FC<ToolsTabsProps> = ({ isSidebarCollapsed }) => {
   const [activeTab, setActiveTab] = useState('daytoday');
   const { isDark } = useTheme();
+  const navigate = useNavigate();
   // Track which AI view to show: 'intro' | 'fastclaim' | 'chatbot' | 'signup'
   const [aiView, setAiView] = useState<'intro' | 'fastclaim' | 'chatbot' | 'signup'>('intro');
   // Track expanded state for Day-to-Day pricing cards
@@ -118,6 +120,9 @@ const ToolsTabs: React.FC<ToolsTabsProps> = ({ isSidebarCollapsed }) => {
       if (nextIntro) setShowDayToDayCards(true);
       return { ...prev, intro: nextIntro };
     });
+
+  const [familyChildren, setFamilyChildren] = useState(1);
+
 
   const tabs = [
     { 
@@ -764,7 +769,7 @@ const ToolsTabs: React.FC<ToolsTabsProps> = ({ isSidebarCollapsed }) => {
       case 'hospital':
         return (
           <div
-            className={`w-full max-w-[85vw] ${isSidebarCollapsed ? 'md:max-w-[74rem]' : 'md:max-w-[min(74rem,calc(100vw-14rem-0.5rem))]'} mx-auto px-4 md:px-2`}
+            className={w-full max-w-[85vw]  mx-auto px-4 md:px-2}
           >
             <CasketSelection />
           </div>
@@ -889,7 +894,7 @@ const ToolsTabs: React.FC<ToolsTabsProps> = ({ isSidebarCollapsed }) => {
       case 'hospital':
         return (
           <div
-            className={`w-full max-w-[85vw] ${isSidebarCollapsed ? 'md:max-w-[74rem]' : 'md:max-w-[min(74rem,calc(100vw-14rem-0.5rem))]'} mx-auto px-4 md:px-2`}
+            className={w-full max-w-[85vw]  mx-auto px-4 md:px-2}
           >
             <CasketSelection />
           </div>
