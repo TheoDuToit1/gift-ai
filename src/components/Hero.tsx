@@ -761,7 +761,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
                       className={`text-center w-full max-w-7xl px-6 transition-all duration-500 ease-in-out ${
-                        isSidebarCollapsed ? 'mx-auto' : 'ml-0 mr-auto -translate-x-64'
+                        isSidebarCollapsed ? 'mx-auto' : 'ml-[-4rem] mr-auto'
                       }`}
                     >
                       {/* Main Heading - Bold and Centered - Hidden for slide 0 */}
