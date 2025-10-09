@@ -87,21 +87,25 @@ const FAQs: React.FC<FAQsProps> = ({ isSidebarCollapsed }) => {
           <h2 id="faqs" className={`text-4xl lg:text-5xl font-bold mb-6 ${
             isDark ? 'text-white' : 'text-gray-900'
           }`}>
-            We're Here to Support You
           </h2>
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="flex justify-center gap-3 mb-[2px] w-full mt-[26px]">
+          <div className="flex justify-center gap-3 mb-8 w-full mt-[26px]">
             <button
               onClick={() => setShowFaqs(v => !v)}
-              className={`px-8 sm:px-10 py-3 rounded-lg border text-base font-semibold transition-colors min-w-[11.5rem] scale-125 ${
+              className={`px-4 py-2 rounded-lg border text-sm font-semibold transition-colors flex items-center gap-2 ${
                 isDark
                   ? 'bg-ubuntugift-secondary/30 text-ubuntugift-light hover:bg-ubuntugift-secondary/50 border-ubuntugift-secondary'
                   : 'bg-ubuntugift-light text-ubuntugift-primary hover:bg-ubuntugift-light/80 border-ubuntugift-primary'
               }`}
             >
               {showFaqs ? 'Hide FAQs' : 'Show Frequently Asked Questions'}
+              <ChevronDown className={`w-6 h-6 flex-shrink-0 transition-transform duration-300 ${
+                showFaqs ? 'rotate-180' : ''
+              } ${
+                isDark ? 'text-gray-400' : 'text-gray-400'
+              }`} />
             </button>
             {showFaqs && (
               <button

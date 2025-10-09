@@ -326,9 +326,9 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
   // Calculate padding based on sidebar state with more noticeable difference
   const getContentPadding = () => {
     if (isSidebarCollapsed) {
-      return 'pl-8 md:pl-12 lg:pl-16';
+      return 'pl-6 md:pl-12 lg:pl-16';
     }
-    return 'pl-16 md:pl-24 lg:pl-32 xl:pl-48';
+    return 'pl-6 md:pl-12 lg:pl-16 xl:pl-20';
   };
   const [currentSlide] = useState<number>(specificSlide ?? 0);
   const [currentText, setCurrentText] = useState<string>('');
@@ -467,7 +467,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
               } : {}}
             >
               <div 
-                className={`w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 transition-all duration-500 ease-in-out ${getContentPadding()} ${getHeroPadding()}`}
+                className={`w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 transition-all duration-500 ease-in-out ${getContentPadding()}`}
                 style={{
                   transitionProperty: 'padding',
                   transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -495,7 +495,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                         initial={{ x: 50, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                        className="text-left space-y-6"
+                        className="text-center md:text-left space-y-6"
                       >
                         {selectedTestimonial ? (
                           <>
@@ -541,7 +541,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                               initial={{ y: 20, opacity: 0 }}
                               animate={{ y: 0, opacity: 1 }}
                               transition={{ delay: 0.4, duration: 0.6 }}
-                              className={`text-3xl sm:text-4xl md:text-5xl font-manrope font-bold leading-tight tracking-tight ${isDark ? 'text-white' : 'text-gray-900'} mb-6`}
+                              className={`text-3xl sm:text-4xl md:text-5xl font-manrope font-bold leading-tight tracking-tight text-center md:text-left ${isDark ? 'text-white' : 'text-gray-900'} mb-6`}
                             >
                               {slide.staticText}
                             </motion.h1>
@@ -562,7 +562,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                               initial={{ y: 20, opacity: 0 }}
                               animate={{ y: 0, opacity: 1 }}
                               transition={{ delay: 0.8, duration: 0.6 }}
-                              className={`text-lg ${isDark ? 'text-gray-300' : 'text-gray-600'} font-manrope leading-relaxed mb-6`}
+                              className={`text-lg text-center md:text-left ${isDark ? 'text-gray-300' : 'text-gray-600'} font-manrope leading-relaxed mb-6`}
                             >
                               Click on a testimonial card to hear real stories from our customers and learn more about their experience with Day1Health.
                             </motion.p>
@@ -788,7 +788,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                       
                       {/* Typewriter Section - Large and Prominent */}
                       <div className={`${slide.id === 1 ? 'mb-4 sm:mb-8' : 'mb-4 sm:mb-8'} flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 items-center justify-center`} 
-                           style={slide.id === 0 ? { marginLeft: isSidebarCollapsed ? '-80px' : '-130px' } : {}}>
+                           style={slide.id === 0 ? { marginLeft: isSidebarCollapsed ? '0px' : '0px' } : {}}>
                         {slide.id !== 1 && slide.id !== 0 && (
                           <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-manrope font-bold text-gray-900">
                             from
@@ -895,7 +895,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
                                 ? 'mt-[63px] mb-12' // Move down 15px for slide 0 (48px + 15px)
                                 : 'mt-12 mb-12') // Default for other slides
                         }`}
-                        style={slide.id === 0 ? { marginLeft: isSidebarCollapsed ? '-80px' : '-130px', textAlign: 'center' } : {}}
+                        style={slide.id === 0 ? { marginLeft: '0px', textAlign: 'center' } : {}}
                       >
                         {slide.subheading}
                       </motion.p>

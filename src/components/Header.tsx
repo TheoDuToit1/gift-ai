@@ -24,7 +24,6 @@ const Header: React.FC<HeaderProps> = ({
   const navItems = [
     { id: 'hero', label: 'Home', icon: Home },
     { id: 'tools-tabs', label: 'Services', icon: Package },
-    { id: 'gift-ai', label: 'Gift AI', icon: MessageSquare },
     { id: 'obituaries', label: 'Obituaries', icon: BookOpen },
     { id: 'how-it-works', label: 'The Process', icon: Settings },
     { id: 'feedback', label: 'Reviews', icon: Star },
@@ -123,7 +122,7 @@ const Header: React.FC<HeaderProps> = ({
             <h4 className={`font-semibold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>Quick Actions</h4>
           )}
           <div className={`${isDark ? 'bg-gray-800' : 'bg-white'} rounded-2xl shadow-sm ${isSidebarCollapsed ? 'p-2' : 'p-3'}`}>
-            <div className={`flex ${isSidebarCollapsed ? 'flex-col gap-1' : 'flex-row gap-2'} w-full`}>
+            <div className={`flex flex-col gap-2 w-full`}>
               <button
                 onClick={(e) => {
                   e.preventDefault();
