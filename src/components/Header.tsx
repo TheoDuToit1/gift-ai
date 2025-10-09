@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, Mail, ChevronLeft, ChevronRight, Home, Settings, HelpCircle, MessageSquare, Users, Package, BookOpen, Star } from 'lucide-react';
+import { Phone, Mail, ChevronLeft, ChevronRight, Home, Settings, HelpCircle, MessageSquare, Users, Package, BookOpen, Star, Menu, X } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
 interface HeaderProps {
@@ -19,6 +19,7 @@ const Header: React.FC<HeaderProps> = ({
   isFooterInView: _isFooterInView
 }) => {
   const { isDark } = useTheme();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Removed legacy typewriter effect and related state
   const navItems = [
@@ -243,6 +244,78 @@ const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       </aside>
+
+      {/* Mobile Header */}
+      <header className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 dark:bg-gray-900/95 dark:border-gray-800">
+        <div className="flex items-center justify-between px-4 py-3">
+          {/* Logo */}
+          <div className="flex flex-col">
+            <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>GiftAi</span>
+            <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Funeral Services</span>
+          </div>
+
+          {/* Hamburger Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className={`p-2 rounded-lg transition-colors ${
+              isDark ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-100 text-gray-700'
+            }`}
+            aria-label="Toggle mobile menu"
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Menu Overlay */}
+        {isMobileMenuOpen && (
+          <div className={`absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gray-200 dark:bg-gray-900/95 dark:border-gray-800 shadow-lg`}>
+            <nav className="px-4 py-4">
+              <ul className="space-y-2">
+                {navItems.map((item) => {
+                  const isActive = activeSection === item.id;
+                  return (
+                    <li key={item.id}>
+                      <button
+                        onClick={() => {
+                          if (item.id === 'tools-tabs') {
+                            // Scroll to tools section
+                            const section = document.querySelector('[data-section="tools-tabs"]');
+                            if (section) {
+                              section.scrollIntoView({ behavior: 'smooth' });
+                            }
+                            // Then click the packages tab after a delay
+                            setTimeout(() => {
+                              const packagesTab = document.querySelector('[data-tab-id="daytoday"]') as HTMLElement;
+                              if (packagesTab) {
+                                packagesTab.click();
+                              }
+                            }, 300);
+                          } else {
+                            onNavigate(item.id);
+                          }
+                          setIsMobileMenuOpen(false); // Close menu after navigation
+                        }}
+                        className={`w-full flex items-center px-4 py-3 rounded-lg text-left transition-colors ${
+                          isActive
+                            ? `text-white ${isDark ? 'bg-ubuntugift-primary' : 'bg-ubuntugift-primary'}`
+                            : `hover:bg-gray-100 ${isDark ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`
+                        }`}
+                      >
+                        <item.icon className="w-5 h-5 mr-3" />
+                        <span className="font-medium">{item.label}</span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+          </div>
+        )}
+      </header>
 
       {/* Mobile Bottom Navigation */}
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-gray-200 dark:bg-gray-900/95 dark:border-gray-800">

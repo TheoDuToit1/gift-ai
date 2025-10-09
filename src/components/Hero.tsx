@@ -385,7 +385,7 @@ const Hero: React.FC<HeroProps> = ({ isSidebarCollapsed, specificSlide }: HeroPr
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className={`min-h-[80vh] sm:min-h-[75vh] flex items-center justify-center transition-colors duration-500 ease-in-out relative rounded-3xl overflow-hidden ${
+              className={`min-h-[60vh] sm:min-h-[75vh] flex items-center justify-center transition-colors duration-500 ease-in-out relative rounded-3xl overflow-hidden ${
                 slide.backgroundImage ? 'bg-cover bg-center bg-no-repeat' : 'bg-gradient-to-br'
               } ${
                 isDark && (slide.id === 3 || slide.id === 0) && !slide.backgroundImage
