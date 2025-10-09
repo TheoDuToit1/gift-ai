@@ -57,7 +57,7 @@ const Header: React.FC<HeaderProps> = ({
           </button>
           {!isSidebarCollapsed && (
             <div className="ml-4 flex flex-col">
-              <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>UbuntuGift</span>
+              <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>GiftAi</span>
               <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Funeral Services</span>
             </div>
           )}
@@ -170,7 +170,7 @@ const Header: React.FC<HeaderProps> = ({
                   e.preventDefault();
                   window.dispatchEvent(new Event('openCallModal'));
                 }}
-                aria-label="Call UbuntuGift"
+                aria-label="Call GiftAi"
                 className={`rounded-lg text-sm font-medium transition-colors ${
                   isDark
                     ? 'bg-ubuntugift-primary text-ubuntugift-light hover:bg-ubuntugift-secondary'
