@@ -55,49 +55,6 @@ const heroSlides: HeroSlide[] = [
     iconColor: 'text-blue-500',
     backgroundImage: '/images/cas.jpg',
   },
-  {
-    id: 1,
-    staticText: 'My FamCare',
-    icon: Users2,
-    typewriterWords: [
-      { text: 'Family safe', icon: ShieldCheck },
-      { text: 'All gaps covered', icon: Heart },
-      { text: 'Fully protected', icon: Users2 },
-      { text: 'Cover that lasts', icon: Star }
-    ],
-    subheading: 'Complete care for growing families',
-    bgColor: 'from-[#A8DADC] to-[#A8DADC]',
-    textColor: 'text-gray-900',
-    buttonBg: 'bg-[#16a34a] hover:bg-[#15803d]',
-    iconColor: 'text-blue-800',
-  },
-  {
-    id: 2,
-    staticText: '',
-    icon: Briefcase,
-    typewriterWords: [],
-    subheading: '',
-    bgColor: 'from-[#EAD8C0] to-[#EAD8C0]',
-    textColor: 'text-transparent',
-    buttonBg: 'bg-transparent',
-    iconColor: 'text-transparent',
-  },
-  {
-    id: 3,
-    staticText: 'Finally, cover that fits your life',
-    icon: UsersRound,
-    typewriterWords: [
-      { text: 'No drama cover', icon: ShieldCheck },
-      { text: 'Affordable & flexible', icon: Heart },
-      { text: 'Fits your life', icon: Activity },
-      { text: 'Glad you chose us', icon: Star }
-    ],
-    subheading: 'Because everyone deserves Day1 protection.',
-    bgColor: 'from-[#F5E8D9] to-[#F0E0C9]',
-    textColor: 'text-gray-900',
-    buttonBg: 'bg-[#16a34a] hover:bg-[#15803d]',
-    iconColor: 'text-green-500',
-  },
 ];
 
 // Testimonial data for slide 2 background

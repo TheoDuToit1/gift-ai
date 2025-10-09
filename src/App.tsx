@@ -12,6 +12,7 @@ import CasketsPage from './components/CasketsPage';
 import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
 import AdminOnboarding from './components/AdminOnboarding';
+import NotFoundPage from './components/NotFoundPage';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import { ThemeProvider } from './contexts/ThemeContext';
 
@@ -27,7 +28,7 @@ function CasketsPageWrapper() {
 }
 
 function PrivacyPolicyWrapper() {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarCollapsed] = useState(false);
 
   return (
     <PrivacyPolicy
@@ -208,7 +209,7 @@ function AppWrapper() {
   );
 }
 
-function App() {
+export default function App() {
   return (
     <ThemeProvider>
       <Routes>
@@ -217,7 +218,6 @@ function App() {
         <Route path="/slide-2" element={<AppWrapper />} />
         <Route path="/slide-3" element={<AppWrapper />} />
         <Route path="/slide-4" element={<AppWrapper />} />
-        {/* Dynamic slide route to catch /slide-:num */}
         <Route path="/slide-:num" element={<AppWrapper />} />
         <Route path="/plans/day-to-day" element={<PlanDetailPage />} />
         <Route path="/plans/hospital" element={<HospitalPlanDetailPage />} />
@@ -226,16 +226,12 @@ function App() {
         <Route path="/plans/junior-executive" element={<JuniorExecutivePlanDetailPage />} />
         <Route path="/regulatory-information" element={<RegulatoryInformationPage />} />
         <Route path="/procedures" element={<ProceduresPage />} />
-        <Route path="/caskets" element={<CasketsPageWrapper />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyWrapper />} />
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/setup" element={<AdminOnboarding />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        {/* Catch-all: render the SPA for any other route */}
-        <Route path="*" element={<AppWrapper />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </ThemeProvider>
   );
 }
-
-export default App;
